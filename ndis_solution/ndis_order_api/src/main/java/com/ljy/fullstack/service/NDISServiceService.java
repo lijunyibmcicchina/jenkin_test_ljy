@@ -14,6 +14,8 @@ import com.ljy.fullstack.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NDISServiceService {
     private final ServiceTypeRepository serviceTypeRepository;
@@ -27,6 +29,15 @@ public class NDISServiceService {
         this.userRepository = userRepository;
         this.ndisServiceRepository = ndisServiceRepository;
 //        this.orderEventService = orderEventService;
+    }
+
+    public List<User> getProviderUsersByServiceType(Long serviceTypeId) {
+        List<NDISService> ndisServices = ndisServiceRepository.findByServiceType_ServiceTypeId(serviceTypeId);
+
+        return ndisServices.stream()
+                .map(NDISService::getProvider)
+                .distinct()
+                .toList();
     }
 
     public ServiceResponseDto createNDISService(CreateServiceRequestDto createServiceRequestDto) {

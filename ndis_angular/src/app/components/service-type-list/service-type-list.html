@@ -1,0 +1,18 @@
+<div class="contaner mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4">Service Type List</h1>
+  @if (loading) {
+  <div class="text-center">
+    <p>Loading...................</p>
+  </div>
+  } @if (error) {
+  <div class="text-red-600 text-center">
+    <p>{{ error }}</p>
+  </div>
+  } @if (!loading && !error) { @for (serviceType of serviceTypes; track serviceType.serviceTypeId) {
+  <div class="mb-4 p-4 border rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold">{{ serviceType.serviceTypeName }}</h2>
+    <p>{{ serviceType.description }}</p>
+    <button class="text-blue-500 hover:underline mt-2 inline-block">View Providers List</button>
+  </div>
+  } }
+</div>
