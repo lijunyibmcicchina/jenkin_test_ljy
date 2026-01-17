@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("/api/users")
 public class UserController {
     private final NDISServiceService ndisServiceService;
 
@@ -24,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/service-types/{serviceTypeId}")
-    public ResponseEntity<ResponseMessage<List<User>>> getProvicerUsers(@PathVariable Long serviceTypeId) {
+    public ResponseEntity<ResponseMessage<List<User>>> getProvicerUsers(@PathVariable("serviceTypeId") Long serviceTypeId) {
         List<User> users = ndisServiceService.getProviderUsersByServiceType(serviceTypeId);
         ResponseMessage<List<User>> message = ResponseMessage.success(users);
         return ResponseEntity.status(HttpStatus.OK).body(message);
